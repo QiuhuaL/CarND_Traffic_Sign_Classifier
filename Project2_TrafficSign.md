@@ -1,8 +1,8 @@
-#**Traffic Sign Recognition** 
+# **Traffic Sign Recognition** 
 
-##Writeup Template
+## Writeup Template
 
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
 ---
 
@@ -37,15 +37,15 @@ The goals / steps of this project are the following:
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
+### Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
 You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
-###Data Set Summary & Exploration
+### Data Set Summary & Exploration
 
-####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
 I used the pandas library to calculate summary statistics of the traffic
 signs data set:
@@ -56,7 +56,7 @@ signs data set:
 * Image data shape = (32, 32, 3)
 * Number of unique classes in the data set = 43
 
-####2. Include an exploratory visualization of the dataset.
+#### 2. Include an exploratory visualization of the dataset.
 
 Here is an exploratory visualization of the data set, where two bar charts show the number of images in each of the unique class in the training and validation data sets.
 ![alt text][image_bar_train]
@@ -65,9 +65,9 @@ and here is the visualization of randomly selected images from each of the 43 cl
 ![alt text][image_train]
 
 
-###Design and Test a Model Architecture
+### Design and Test a Model Architecture
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
 As a first step, I decided to normalize the data set with the mean, max, and min intensities in the training data set with the code:
 X_train = (X_train_orig - X_train_orig.mean()) / (np.max(X_train_orig) - np.min(X_train_orig))
@@ -89,7 +89,7 @@ Here is an example of an original image and an augmented image:
 
 I tried re-train with the augumented training samples, however, from my expriment, there were not much improvement on the validation and testing accuracies. I would like to try again off line to add more valuable augumented images and look at its effectiveness to help training the classifier. The result of this report was got without the auguemented images.
 
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 My model architecture was based on the LeNet network, and I added several fully connected layers to it. I also added the drop out layer for the fully connected layers to reduce the possibility of over fitting.
 My final model consisted of the following layers:
@@ -110,7 +110,7 @@ My final model consisted of the following layers:
 | Fully connected 5 	| input depth 128, output depth 43, softmax                                                      |   
    
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 I used the Adam optimizer (already implemented in the LeNet lab). I tried with different batch size, epochs, learning rate, and initialization of the weight and bias paramters.
 The final settings used were:
@@ -121,7 +121,7 @@ weights: xavier_initializer
 biass: all zeros
 dropout keep probability: 0.9
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
 * Training Accuracy = 0.99954
@@ -134,9 +134,9 @@ I first tried with the leNet network and the result on the validation set accura
 For the number of epochs, I tried with larger numbers and look the learning curve of validation accuracies to decide the number of epochs. Generally, 100 is a good number without validation accuracies dropping too much(please see the learning curve below, where the blue curve is the traing accuracy and the orange curve is the validation accuracy); for the learning rate, because of the osciallation of the accuracies on the training data, I reduced the learning rate from 0.001 to 0.0005; for initialization of the weights, I adopted the xavier_initializer following recommendations from cs231n; while the default keep probability is 0.5, I found a larger probability is better for my network in the sense of training and validation accuracies. I think the reason is that drop too much connections make this network under-fitting. 
 ![alt text][image_learn]
 
-###Test a Model on New Images
+### Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 Here are 12 German traffic signs that I found on the web:
 ![alt text][image_web]
@@ -146,7 +146,7 @@ The 12 images are first normalized with the same method as above for the validat
 
 The two images from class 0, the 'speed limit 20km/h' might be difficult to classify because there are very few number of training images in this class and it is hard for the network to learn this class. The image for class 30 'Beware of ice/snow' might also be difficult because this traffic sign is actually covered with snow in the images and is very blurred.
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 Traffic Signal:  [0 'Speed limit (20km/h)'], Predicated As:  [0 'Speed limit (20km/h)']
@@ -164,7 +164,7 @@ Traffic Signal:  [17 'No entry'] Predicated As:  [17 'No entry']
 
 The model was able to correctly guess 11 of the 12 traffic signs, which gives an accuracy of 91%. This compares favorably to the accuracy on the test set of 95%. One image that was not classified is the class 34 image for the 'turn left signal' and it was classfied as class 38 'keep right' signal. These two signs do have a lot of similarities, with the direction of the arrows different. The deep nerual network was able to classify the image of the blurred "beware of ice/snow" traffic signal and the two images of the "speed limit 20km/h" signal.
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 The code for making predictions on my final model is located in the 103th-107th cell of the Ipython notebook.
 
 Here is the top 5 predication probabilities of the 12 images.
@@ -215,7 +215,7 @@ for image 1, the true class is 40 'Roundabout mandatory', the prediction has hig
 ![alt text][image_top1]
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 The feature maps of the first two layers for the test image 0 "Speed limit (20km/h)" are shown below, from which we can see that the network will first learn the most apparent edges in the imagesand adding more and more details in later layers that may not be recognizable by humans. 
 ![alt text][image_feature1]
 ![alt text][image_feature1_conv2]
